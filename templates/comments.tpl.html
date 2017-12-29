@@ -1,0 +1,43 @@
+<?php
+echo "<h1".'Comments'."</h1>";
+
+if($isNew == true){
+ ?>
+<title>Comments</title>
+  <h1>Submit Your Comment Here</h1>
+<?php
+}else{
+?>
+<title> Update comments</title>
+  <h1>Update Your Comment Here</h1>
+<?php
+echo '<p>'.$messages.'</p>';}
+?>
+    <form method='post' action='<?php if($isNew == true) {echo "blogs.php?id=$id";}else { echo "edit.php?id=$id";}?>'>
+        <div>
+            <label for='author'><h2>* Your Name :</h2><br> </label>
+            <input type='text' id='author' name='author' class="text-field" placeholder='Type your name here ' value='<?php if(isset($author)){ echo $author; }?>'required/>
+        </div>
+        <div>
+            <br>
+            <label for='commentBody'><h2>* Your Comment:</h2><br></label>
+            <textarea id='comment_body' name='comment_body' class="textarea" placeholder='Type your comment here' required><?php if(isset($commentBody)){ echo $commentBody; }?></textarea>
+        </div>
+        <div style="display:none">
+            <br>
+            <label for='displayed'>Displayed :</label>
+            <input type='checkbox' id='displayed' name='displayed' checked/>
+        </div>
+        <div>
+            <?php
+            if($isNew){ ?>
+                <br>
+                 <input class='buttons' type='submit' value='Submit'/>
+
+            <?php } else { ?>
+            <br>
+                <input class='button button2' type='submit' value='Update'/>
+                <a class='button button3' href="delete.php?id= <?php echo $id?>">Delete</a>
+            <?php  header('Location:'.$_SERVER['PHP_SELF']); } ?>
+            </div>
+            </form>
