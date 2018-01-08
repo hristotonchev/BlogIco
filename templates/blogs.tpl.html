@@ -1,0 +1,40 @@
+<!-- end of MENU WRAPPER -->
+<div class="page padding-bottom">
+  <div class="content_wrap">
+    <div class="left-panel">
+      <div class="panel">
+            <?php if (!empty($_GET['id']) && $_GET['id'] != null && isset($_GET['id'])) { ?>
+                <div class="title">
+                <?php
+                echo "<h1>".htmlspecialchars($blogResult['title'])."</h1>";
+                echo "<h2>".'Author: Icaka'."</h2>";
+                ?>
+                <div class="content">
+                <?php
+                echo "<p>".htmlspecialchars($blogResult['body'])."</p>";
+                echo "<h1>"."Comments"."</h1>";
+                echo "<br>";
+                include('comments.php');
+                 ?>
+                </div>
+                </div>
+                <?php } else { ?>
+
+           <?php foreach ($posts as $post): ?>
+                <div class="title">
+                <h1><?php echo htmlspecialchars($post['title']);?></h1>
+                <h2>Author: Icaka</h2>
+                    <div class="content">
+                    <p><?php echo substr(htmlspecialchars($post['body']), 0, 300).'...';?></p>
+                    <a href='<?php echo '?id='.$post['id'];?>' class='button'> --You can continue reading here --</a>
+                </div>
+            </div>
+                <?php endforeach  ?>
+        </div>
+        <?php } ?>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+

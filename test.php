@@ -65,3 +65,28 @@ if($query->rowCount()>0)
 
 
 
+if (!empty($_GET['id']) && $_GET['id'] != null && isset($_GET['id'])) {
+    $sql = "select * from blog_posts where id = ?";
+    $query = $DB_con->prepare($sql);
+    $query->execute([$_GET['id']]);
+    $blogResult = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($blogResult['id']) || $blogResult['published'] == 0) {
+        header('location:blogs.php');
+    }
+                ?>
+                 <div class="title">
+                <?php
+                echo "<h1>".htmlspecialchars($blogResult['title'])."</h1>";
+                echo "<h2>".'Author: Icaka'."</h2>";
+                ?>
+                <div class="content">
+                <?php
+                echo "<p>".htmlspecialchars($blogResult['body'])."</p>";
+                echo "<h1>"."Comments"."</h1>";
+                echo "<br>";
+                include('comments.php');
+                ?>
+                </div>
+                </div>
+
+
