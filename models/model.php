@@ -70,6 +70,22 @@ function displayDiseredBlogPost($id) {
 
     }
 
+function displayAllComments() {
+    $link = open_database_con();
+
+    $sql = "SELECT * FROM comments where blog_post_id = ?";
+    $query = $link->prepare($sql);
+    $query->execute([$_GET['id']]);
+
+    $comments = array();
+    while ($result=$query->fetch(PDO::FETCH_ASSOC)) {
+        $comments[] = $result;
+    }
+    close_database_con($link);
+
+    return $comments;
+}
+
 
 
 

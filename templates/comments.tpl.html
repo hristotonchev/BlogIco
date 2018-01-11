@@ -1,8 +1,19 @@
-<?php
-echo "<h1".'Comments'."</h1>";
 
-if($isNew == true){
- ?>
+
+
+   <?php foreach($comments as $comment) : ?>
+        <div class="title">
+        <h2>From : <?php echo htmlspecialchars($comment['author']) ;?></h2>
+
+
+         <p><?php echo substr(htmlspecialchars($comment['comment_body']), 0, 300) ; ?></p>
+
+            </div>
+            <?php endforeach  ?>
+            </div>
+
+
+<?php if($isNew == true){ ?>
 <title>Comments</title>
   <h1>Submit Your Comment Here</h1>
 <?php
@@ -33,11 +44,7 @@ echo '<p>'.$messages.'</p>';}
             if($isNew){ ?>
                 <br>
                  <input class='buttons' type='submit' value='Submit'/>
+            <?php } ?>
 
-            <?php } else { ?>
-            <br>
-                <input class='button button2' type='submit' value='Update'/>
-                <a class='button button3' href="delete.php?id= <?php echo $id?>">Delete</a>
-            <?php  header('Location:'.$_SERVER['PHP_SELF']); } ?>
             </div>
             </form>

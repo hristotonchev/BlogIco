@@ -90,3 +90,9 @@ if (!empty($_GET['id']) && $_GET['id'] != null && isset($_GET['id'])) {
                 </div>
 
 
+  <?php } else { ?>
+            <br>
+                <input class='button button2' type='submit' value='Update'/>
+                <a class='button button3' href="delete.php?id= <?php echo $id?>">Delete</a>
+            <?php  header('Location:'.$_SERVER['PHP_SELF']); } ?>
+

@@ -1,48 +1,31 @@
 <?php
-//$pageTitle = 'about';
-//$currentPage = 'about';
-//include('inc/header.php');
 include('databaseconfig.php');
 
-$id = $_GET['id'];
+    $id = $_GET['id'];
 
-if(isset($_POST['displayed'])){
-    $displayed = 1;
-} else {
-    $displayed = 0;
-}
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $author = $_POST['author'];
-    $commentBody = $_POST['comment_body'];
-    $blogPostId = $_GET['id'];
+    if(isset($_POST['displayed'])){
+        $displayed = 1;
+    } else {
+        $displayed = 0;
+    }
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $author = $_POST['author'];
+        $commentBody = $_POST['comment_body'];
+        $blogPostId = $_GET['id'];
 
-}
+    }
 
-if(!empty($_POST) && isset($author) && $author == ''){
-    $error_message = 'Don\' mess with the author';
-}
-if(!empty($_POST) && isset($commentBody) && $commentBody == ''){
-    $error_message = 'No Comment';
-}
+    if(!empty($_POST) && isset($author) && $author == ''){
+        $error_message = 'Don\' mess with the author';
+    }
 
-$sql = "SELECT * FROM comments where blog_post_id = ?";
-$query = $DB_con->prepare($sql);
-$query->execute([$_GET['id']]);
-    while ($result=$query->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-                <div class="title">
-            <?php
-            echo "<h2>".'From :'.htmlspecialchars($result['author'])."</h2>";
-            ?>
-                <div class="content">
-            <?php
-            echo "<p>".substr(htmlspecialchars($result['comment_body']), 0, 300)."</p>";
-                ?>
-                </div>
-                </div>
-<?php
+    if(!empty($_POST) && isset($commentBody) && $commentBody == ''){
+        $error_message = 'No Comment';
+    }
 
-        }
+    require_once('models/model.php');
+
+    $comments = displayAllComments();
 
 
 if(!empty($_POST) && !isset($error_message)){
