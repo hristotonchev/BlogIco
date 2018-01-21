@@ -73,7 +73,7 @@ function displayDiseredBlogPost($id) {
 function displayAllComments() {
     $link = open_database_con();
 
-    $sql = "SELECT * FROM comments where blog_post_id = ?";
+    $sql = "SELECT * FROM comments where blog_post_id = ? order by id desc";
     $query = $link->prepare($sql);
     $query->execute([$_GET['id']]);
 
@@ -86,6 +86,17 @@ function displayAllComments() {
     return $comments;
 }
 
+function addComment($author,$commentBody,$displayed,$blogPostId) {
+    $link = open_database_con();
+    $sql = "INSERT INTO comments (author, comment_body, displayed, blog_post_id) VALUES (:author,:comment_body,:displayed,:blog_post_id)";
+    $query = $link->prepare($sql);
+    $query->execute(array(  'author'       => $author,
+                            'comment_body' => $commentBody,
+                            'displayed'    => $displayed,
+                            'blog_post_id' => $blogPostId));
+    //TO DO
+    //ASK DOPARIS
+    header("Location:blogs.php?id=".$blogPostId);
 
-
-
+   close_database_con($link);
+}

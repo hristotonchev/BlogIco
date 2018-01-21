@@ -53,7 +53,3 @@ include('inc/header.php'); ?>
   </div>
   <!-- end of BOX WRAPPER -->
 <?php include('inc/footer.php');?>
-<!----footer-wrapper-------->
-<!-- end of WRAPPER -->
-</body>
-</html>

@@ -36,3 +36,7 @@
   </div>
   <div class="clear"></div>
 </div>
+<!----footer-wrapper-------->
+<!-- end of WRAPPER -->
+</body>
+</html>

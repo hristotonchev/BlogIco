@@ -3,7 +3,7 @@
   <div class="content_wrap">
     <div class="left-panel">
       <div class="panel">
-            <?php if (!empty($_GET['id']) && $_GET['id'] != null && isset($_GET['id'])) { ?>
+            <?php if (isset($_GET['id'])) { ?>
                 <div class="title">
                 <?php
                 echo "<h1>".htmlspecialchars($blogResult['title'])."</h1>";
