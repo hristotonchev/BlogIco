@@ -1,5 +1,6 @@
 <?php
 include("../inc/header_admin.php");
+require('models/model.php');
 
 $currentPage = 'admin';
 
@@ -30,16 +31,7 @@ $currentPage = 'admin';
     }
 
     if(!empty($_POST) && !isset($error_message)){
-        $sql = "insert into blog_posts (title, body,published) values (:title, :body, :published)";
-        $query = $DB_con->prepare($sql);
-        $query->execute(array('title' => $title,
-                              'body' => $body,
-                              'published' => $published));
-        $_SESSION['messages'] = [
-        'blogPosted' => 'Blog post send successfully',
-        'postAnotherBlog' => 'You can post another one!'
-        ];
-        header("Location:admin.php");
+    $blog = createBlogPost($title,$body,$published);
     } else {
             if (isset($error_message)){
                     echo "<p class='p p2'>".$error_message."</p>";

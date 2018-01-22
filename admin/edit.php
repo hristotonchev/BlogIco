@@ -25,17 +25,15 @@ if(isset($_POST['update']))
     }
 
     if(empty($title) || empty($body)) {
-
-    if(!empty($_POST) && isset($body) && $body == ''){
+        if(!empty($_POST) && isset($body) && $body == ''){
             $error_message = "<font color='red'>Title field is empty.</font><br/>";
     }
-
-    if(!empty($_POST) && isset($title) && $title == ''){
+        if(!empty($_POST) && isset($title) && $title == ''){
             $error_message =  "<font color='red'>Body field is empty.</font><br/>";
         }
     } else {
         //updating the table
-    if(!empty($_POST) && !isset($error_message)){
+        if(!empty($_POST) && !isset($error_message)){
             $sql = "UPDATE blog_posts SET title=:title, body=:body, published=:published WHERE id=:id";
             $query = $DB_con->prepare($sql);
             $id= $_GET['id'];

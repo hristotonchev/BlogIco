@@ -7,7 +7,7 @@ require_once('controllers.php');
 
 // route the request internally
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-if ('/index.php' === $uri) {
+if ('/index.php' === $uri || '/' === $uri) {
     list_action();
 } elseif ('/blogs.php' === $uri && !isset($_GET['id'])) {
     list_action_blogPage();
