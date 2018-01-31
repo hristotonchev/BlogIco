@@ -1,11 +1,15 @@
 <?php include("../admin/session.php"); ?>
 <link href="../css/styles2.css" rel="stylesheet" type="text/css" />
 <?php
-include_once("../admin/dbconfig.php");
-$currentPage = '';
+
+require_once('models/model.php');
+
+$currentPage = null;
 
 ?>
-<a href="admin.php"   class='button <?php if($currentPage == 'admin'){ echo 'active';}?>'>CREATE BLOG</a>
+<title><?php echo $pageTitle;?></title>
+
+<a href="admin.php" class='button <?php if($currentPage == 'admin'){ echo 'active';}?>'>CREATE BLOG</a>
 
 <a href="blogposts.php" class='button <?php if($currentPage == 'blogposts'){ echo 'active';}?>'>BLOG POSTS</a>
 

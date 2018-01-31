@@ -1,45 +1,21 @@
 <?php
-include("../inc/header_admin.php");
-require('models/model.php');
-
+$pageTitle = 'Home';
 $currentPage = 'admin';
-
-    if(!empty($_SESSION['messages'])){
-        echo '<ul>';
-        foreach($_SESSION['messages'] as $value){
-                echo '<li>'.$value.'</li>';
-        } echo '</ul>';
-    }
-    unset($_SESSION['messages']);
-    if(isset($_POST['published']))
-    {
-        $published= 1;
-    }
-    else {
-        $published= 0;
-    }
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $title = $_POST['title'];
-        $body = $_POST['body'];
-
-    }
-    if(!empty($_POST) && isset($body) && $body == ''){
-        $error_message = 'Body is blank MF';
-    }
-    if(!empty($_POST) && isset($title) && $title == ''){
-        $error_message = 'Title is blank MF';
-    }
-
-    if(!empty($_POST) && !isset($error_message)){
-    $blog = createBlogPost($title,$body,$published);
-    } else {
-            if (isset($error_message)){
-                    echo "<p class='p p2'>".$error_message."</p>";
-            }
-    }
-$isNew = True;
-$messages = null;
-include('templates/edit_blog_post.tpl.html');
+include("../inc/header_admin.php");
+require_once('models/model.php');
+require_once('controllers.php');
 
 
 
+// route the request internally
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+var_dump($uri);
+var_dump('/admin/blogposts.php' === $uri);
+if ('/admin/admin.php' === $uri) {
+   createBlogPostAdmin();
+} elseif ('/admin/blogposts.php' === $uri) {
+    displayBlogPostsAdmin();
+} else {
+    header('location:/pagenotfound.php');
+    echo '<html><body><h1>Page Not Found</h1></body></html>';
+}

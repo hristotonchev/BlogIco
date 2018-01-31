@@ -34,8 +34,9 @@ if(isset($_POST['update']))
     } else {
         //updating the table
         if(!empty($_POST) && !isset($error_message)){
+            $link = open_database_con();
             $sql = "UPDATE blog_posts SET title=:title, body=:body, published=:published WHERE id=:id";
-            $query = $DB_con->prepare($sql);
+            $query = $link->prepare($sql);
             $id= $_GET['id'];
             $query->bindparam(':id', $id);
             $query->bindparam(':title', $title);
@@ -44,6 +45,7 @@ if(isset($_POST['update']))
             $query->execute();
 
             header("Location: edit.php?id=$id&status=success");
+            close_database_con($link);
         }
     }
 ?>
@@ -52,8 +54,9 @@ if(isset($_POST['update']))
 $id = $_GET['id'];
 
 //selecting data associated with this particular id
+$link = open_database_con();
 $sql = "SELECT * FROM blog_posts WHERE id=:id";
-$query = $DB_con->prepare($sql);
+$query = $link->prepare($sql);
 $query->execute(array(':id' => $id));
 
 while($row = $query->fetch(PDO::FETCH_ASSOC))

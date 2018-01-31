@@ -1,6 +1,7 @@
 <?php
-include("dbconfig.php");
+require_once('models/model.php');
 session_start();
+
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $username = test_input($_POST['username']);
@@ -27,16 +28,17 @@ session_start();
 
     }
     if(!empty($_POST) && !isset($errorMessage)){
-        $sql = "SELECT * FROM admin WHERE username = ?";
-        $query = $DB_con->prepare($sql);
-        $result = $query->execute([$_POST['username']]);
+    $link = open_database_con();
+    $sql = "SELECT * FROM admin WHERE username = ?";
+    $query = $link->prepare($sql);
+    $result = $query->execute([$_POST['username']]);
         $user = $query->fetchAll(PDO::FETCH_OBJ);
-            if (isset($user[0]) && password_verify($_POST['password'], $user[0]->password) && empty($_SESSION['login_user'])) {
+    if (isset($user[0]) && password_verify($_POST['password'], $user[0]->password) && empty($_SESSION['login_user'])) {
                     $_SESSION['login_user'] = $username;
 
                 $_SESSION['messages'] = ['login' => 'Welcome MF , you entered the Blog'];
                 header('location:blogposts.php');
-            } else {
+    } else {
             $_SESSION['messages'] = ['<p>'.'Wrong Username or Password'.'</p>'];
                 if(!empty($_SESSION['messages']) && !isset($errorMessage)){
                     echo $_SESSION['messages'][0];

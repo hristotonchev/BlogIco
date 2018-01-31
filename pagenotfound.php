@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Work';
-$currentPage = 'work';
+$pageTitle = '';
+$currentPage = '';
 include('inc/header.php'); ?>
 
 <center><h1 text-align:center>404</h1></center>

@@ -14,7 +14,7 @@ if ('/index.php' === $uri || '/' === $uri) {
 } elseif ('/blogs.php' === $uri && isset($_GET['id'])) {
     list_single_blog($_GET['id']);
 } else {
-    header('location:pagenotfound.php');
+    header('location:/pagenotfound.php');
     echo '<html><body><h1>Page Not Found</h1></body></html>';
 }
 
