@@ -94,8 +94,7 @@ function addComment($author,$commentBody,$displayed,$blogPostId) {
                             'comment_body' => $commentBody,
                             'displayed'    => $displayed,
                             'blog_post_id' => $blogPostId));
-    //TO DO
-    //ASK DOPARIS
+
     header("Location:blogs.php?id=".$blogPostId);
 
    close_database_con($link);

@@ -13,11 +13,15 @@ function list_single_blog($id) {
         if (empty(displayDiseredBlogPost($id)) || displayDiseredBlogPost($id)['published'] == 0) {
             header('location:blogs.php');
         }
+        $comments = displayAllComments();
+        createComment();
         $blogResult = displayDiseredBlogPost($id);
         renderTemplate('templates/blogs.tpl.html', [
             'pageTitle' => 'BlogaPosts',
             'currentPage' => 'blogposts',
             'blogResult' => $blogResult,
+            'comments' => $comments,
+
         ]);
     }
 }
@@ -67,7 +71,7 @@ function renderTemplate($template, $vars , $showSidebar = true, $showHeader = tr
     }
 }
 
-function dislplayComments() {
+function createComment(){
     $id = $_GET['id'];
     if(isset($_POST['displayed'])){
         $displayed = 1;
@@ -80,20 +84,19 @@ function dislplayComments() {
         $blogPostId = $_GET['id'];
     }
 
-    if(!empty($_POST) && isset($author) && $author == ''){
+    if(!empty($_POST) && empty(trim($author))){
         $error_message = 'Don\'t mess with the author';
     }
 
-    if(!empty($_POST) && isset($commentBody) && $commentBody == ''){
+    if(!empty($_POST) && empty(trim($commentBody))){
         $error_message = 'No Comment';
     }
-    $comments = displayAllComments();
 
-    renderTemplate('templates/comments.tpl.html', [
-    'comments' => $comments,
-    ],
-    false,
-    false,
-    false
-    );
+    if(!empty($_POST) && !isset($error_message)){
+    $comment =  addComment($author,$commentBody,$displayed, $blogPostId);
+    } else {
+        if (isset($error_message)){
+                echo $error_message;
+        }
+    }
 }
