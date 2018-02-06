@@ -6,12 +6,12 @@
             <?php if (isset($_GET['id'])) { ?>
                 <div class="title">
                 <?php
-                echo "<h1>".htmlspecialchars($blogResult['title'])."</h1>";
+                echo "<h1>".htmlspecialchars($vars['blogResult']['title'])."</h1>";
                 echo "<h2>".'Author: Icaka'."</h2>";
                 ?>
                 <div class="content">
                 <?php
-                echo "<p>".htmlspecialchars($blogResult['body'])."</p>";
+                echo "<p>".htmlspecialchars($vars['blogResult']['body'])."</p>";
                 echo "<h1>"."Comments"."</h1>";
                 echo "<br>";
                 include('comments.php');
@@ -20,7 +20,7 @@
                 </div>
                 <?php } else { ?>
 
-           <?php foreach ($posts as $post): ?>
+          <?php foreach ($vars['posts'] as $post): ?>
                 <div class="title">
                 <h1><?php echo htmlspecialchars($post['title']);?></h1>
                 <h2>Author: Icaka</h2>
@@ -35,6 +35,3 @@
         <div class="clear"></div>
     </div>
 </div>
-
-
-

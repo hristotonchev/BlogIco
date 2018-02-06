@@ -4,7 +4,7 @@ function open_database_con() {
 
     $db_host = "localhost";
     $db_user = "root";
-    $db_pass = "Ht0891001";
+    $db_pass = "haha";
     $db_name = "ico";
 
     try

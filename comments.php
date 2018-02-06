@@ -1,5 +1,5 @@
 <?php
-
+$id = $_GET['id'];
 if(isset($_POST['displayed'])){
     $displayed = 1;
 } else {
@@ -35,4 +35,3 @@ if(!empty($_POST) && !isset($error_message)){
 $isNew = True;
 $messages = null;
 include('templates/comments.tpl.html');
-
