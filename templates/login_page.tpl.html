@@ -1,10 +1,10 @@
 <link href="../css/styles2.css" rel="stylesheet" type="text/css" />
-<title>Login Page</title>
+<title><?php echo $vars['pageTitle'];?></title>
 <h1>Login</h1>
 <form method='post'>
     <div>
         <label for='username'>Username</label>
-        <input class='box' type='text' id='username' name='username' placeholder="Enter your username" value='<?php if(isset($username)){ echo htmlspecialchars($username); } ?>' required>
+        <input class='box' type='text' id='username' name='username' placeholder="Enter your username" value='<?php if(isset($vars['username'])){ echo htmlspecialchars($vars['username']); } ?>' required>
     </div>
      <div>
         <label for='password'>Password</label>
