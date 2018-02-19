@@ -139,11 +139,14 @@ function createBlogPostAdmin() {
     }
     $isNew = True;
     $messages = null;
+    $post = null;
     renderAdminTemplate('templates/edit_blog_post.tpl.html', [
     'currentPage' => 'createBlog',
     'pageTitle' => 'Create Blog Post',
     'isNew' => true,
     'messages' => null,
+    'title' => '',
+    'body' => '',
     ]);
 
 }
@@ -199,4 +202,102 @@ function renderAdminTemplate($template, $vars , $showAdminHeader = true) {
         include("inc/header_admin.php");
     }
     include($template);
+}
+
+function deletePost() {
+    if(isset($_POST['delete']) && $_POST){
+        $id = $_GET['id'];
+        deleteBlogPost($id);
+        $_SESSION['MESSAGE_DELETE'] = "The Blog Post has been deleted";
+        header('location:blogposts.php');
+    }
+    renderAdminTemplate('templates/delete_blog_post.tpl.html',[
+        'pageTitle' => 'Delete Post',
+        'currentPage' => null,
+    ]);
+}
+
+function logout() {
+    session_start();
+    if(session_destroy()) {
+      header("Location: login.php");
+    }
+}
+
+function editBlogPost() {
+    $message = null;
+    $id = $_GET['id'];
+    if(isset($_POST['update'])) {
+        $id = $_POST['id'];
+        $title=$_POST['title'];
+        $body=$_POST['body'];
+        $published=$_POST['published'];
+
+    }
+    if(isset($_POST['published'])) {
+        $published= 1;
+    }
+    else {
+        $published= 0;
+    }
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        $title = $_POST['title'];
+        $body = $_POST['body'];
+    } else {
+        $error_message = '';
+    }
+
+    if(!empty($_POST) && empty(trim($body))){
+            $error_message = "<font color='red'>Title field is empty.</font><br/>";
+    }
+        elseif(!empty($_POST) && empty(trim($title))){
+            $error_message =  "<font color='red'>Body field is empty.</font><br/>";
+        } else {
+        //updating the table
+            if(!empty($_POST) && !isset($error_message)){
+            updateBlogPost($id,$title, $body , $published);
+            }
+        }
+    $posts = displayInfoAboutSinglePost($id);
+    foreach ($posts as $post) {
+        $title = $post['title'];
+        $body = $post['body'];
+        $published = $post['published'];
+
+    }
+    if(isset($_GET['id']) && $_GET['id'] == "$id" && isset($_GET['status']) && $_GET['status'] == 'success'){
+        $message = "<font color='green'>The Post has been updated!</font>";
+        echo "<br>";
+    } else {
+        if (isset($error_message)){
+            echo "<p class='p p2'>".$error_message."</p>";
+        } else {
+            echo 'This message should never appear but better be sure than sorry';
+        }
+    }
+
+    renderAdminTemplate('templates/edit_blog_post.tpl.html',[
+        'pageTitle' => 'Edit Blog Post',
+        'currentPage' => null,
+        'isNew' => false,
+        'message' => $message,
+        'id' => $id,
+        'title' => $title,
+        'body' => $body,
+        'published' => $published,
+    ]);
+}
+
+function displayAllCommentsInAdmin(){
+    $query = "SELECT * FROM comments ORDER BY id DESC";
+    $records_per_page=10;
+    $newquery = pagingForComments($records_per_page);
+    $list_commnets = displayCommentsInAdmin($newquery);
+    $list_comments_2 = paginglinkForComments($query,$records_per_page);
+    renderAdminTemplate('templates/comment_list.tpl.html', [
+        'currentPage' => 'comment_list',
+        'pageTitle' => 'Comments',
+        'list_commnets' => $list_commnets,
+        'list_comments_2' => $list_comments_2,
+    ]);
 }

@@ -224,4 +224,128 @@ function login($username)
             echo $_SESSION['messages'][0];
         }
     }   unset($_SESSION['messages'][0]);
+        close_database_con($link);
+}
+
+function deleteBlogPost($id){
+    $link = open_database_con();
+    $sql = "DELETE FROM blog_posts WHERE id=:id";
+    $query = $link->prepare($sql);
+    $query->execute(array(':id' => $id));
+    close_database_con($link);
+}
+
+function updateBlogPost($id, $title,$body,$published) {
+    $link = open_database_con();
+    $sql = "UPDATE blog_posts SET title=:title, body=:body, published=:published WHERE id=:id";
+    $query = $link->prepare($sql);
+    $id= $_GET['id'];
+    $query->bindparam(':id', $id);
+    $query->bindparam(':title', $title);
+    $query->bindparam(':body', $body);
+    $query->bindparam(':published', $published);
+    $query->execute();
+    header("Location: edit.php?id=$id&status=success");
+    close_database_con($link);
+}
+
+function displayInfoAboutSinglePost($id) {
+    $link = open_database_con();
+    $sql = "SELECT * FROM blog_posts WHERE id=:id";
+    $query = $link->prepare($sql);
+    $query->execute(array(':id' => $id));
+    $result = array();
+    while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        $result[] = $row;
+    }
+    return $result;
+    close_database_con($link);
+}
+
+function displayCommentsInAdmin() {
+    $link = open_database_con();
+    $result = null;
+    $sql = "SELECT * FROM comments ORDER BY id DESC";
+    $query = $link->prepare($sql);
+    $query->execute();
+
+    $html = '';
+    while($row=$query->fetch(PDO::FETCH_ASSOC)){
+        $result .=
+        '<table>
+            <tr>
+            <th width="5%">'.htmlspecialchars($row['id']).'</th>
+            <th width="10%">'.htmlspecialchars($row['author']).'</th>
+            <th>'.htmlspecialchars($row['comment_body']).'</th>
+            <th width="10%">'.htmlspecialchars($row['created']).'</th>
+            <th width="5%">'.htmlspecialchars($row['displayed']).'</th>
+            <th width="5%">'.htmlspecialchars($row['blog_post_id']).'</th>
+            <th width="5%"><a href="edit.php?id='.$row['id'].'"class="button button2">Edit</a></th>
+            <th width="5%"><a class="button button3" href="delete.php?id='.$row['id'].'">Delete</a></th>
+            </tr>
+        </table>';
+    }
+    return $result;
+    close_database_con($link);
+}
+
+function pagingForComments($records_per_page)
+{
+    $link = open_database_con();
+    $sql = "SELECT * FROM comments ORDER BY id DESC";
+
+    $query = $link->prepare($sql);
+    $query->execute();
+
+    $starting_position=0;
+    if (isset($_GET["page_no"])) {
+         $starting_position=((int)$_GET["page_no"]-1)*$records_per_page;
+    }
+    $query2=$sql." limit $starting_position,$records_per_page";
+    close_database_con($link);
+
+    return $query2;
+}
+
+function paginglinkForComments($query, $records_per_page)
+{
+    $html = '';
+    $self = $_SERVER['PHP_SELF'];
+
+    $link = open_database_con();
+    $sql = "SELECT * FROM comments ORDER BY id DESC";
+
+    $query = $link->prepare($sql);
+    $query->execute();
+
+    $total_no_of_records = $query->rowCount();
+
+    if ($total_no_of_records > 0) {
+        $html .=
+        '<tr><td colspan="10">';
+        $total_no_of_pages=ceil($total_no_of_records/$records_per_page);
+        $current_page=1;
+        if (isset($_GET["page_no"])) {
+            $current_page=$_GET["page_no"];
+        }
+        if ($current_page!=1) {
+            $previous =$current_page-1;
+            $html .= "<a href='/admin/comment_list.php?page_no=1'>First</a>&nbsp;&nbsp;";
+            $html .= "<a href='/admin/comment_list.php?page_no=".$previous."'>Previous</a>&nbsp;&nbsp;";
+        }
+        for ($i=1; $i<=$total_no_of_pages; $i++) {
+            if ($i==$current_page) {
+                $html .= "<strong><a href='/admin/comment_list.php?page_no=".$i."' style='color:red;text-decoration:none'>".$i."</a></strong>&nbsp;&nbsp;";
+            } else {
+                $html .= "<a href='/admin/comment_list.php?page_no=".$i."'>".$i."</a>&nbsp;&nbsp;";
+            }
+        }
+        if ($current_page!=$total_no_of_pages) {
+            $next=$current_page+1;
+            $html .= "<a href='/admin/comment_list.php?page_no=".$next."'>Next</a>&nbsp;&nbsp;";
+            $html .= "<a href='/admin/comment_list.php?page_no=".$total_no_of_pages."'>Last</a>&nbsp;&nbsp;";
+        }
+        $html .='</td></tr>';
+        close_database_con($link);
+    } return $html;
 }

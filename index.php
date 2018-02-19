@@ -27,6 +27,14 @@ if ('/index.php' === $uri || '/' === $uri || $uri === '') {
     displayBlogPostsAdmin();
 } elseif ('/admin/login.php' === $uri) {
     loginToAdmin();
+} elseif ('/admin/delete.php' === $uri) {
+    deletePost();
+} elseif ('/admin/logout.php' === $uri) {
+    logout();
+} elseif ('/admin/edit.php' === $uri) {
+    editBlogPost();
+} elseif ('/admin/comment_list.php' === $uri) {
+    displayAllCommentsInAdmin();
 } else {
     load404Page();
 }
