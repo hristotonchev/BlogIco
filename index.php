@@ -35,7 +35,9 @@ if ('/index.php' === $uri || '/' === $uri || $uri === '') {
     editBlogPost();
 } elseif ('/admin/comment_list.php' === $uri) {
     displayAllCommentsInAdmin();
-} else {
+} elseif('/admin/comment/delete.php' === $uri){
+    deleteComment();
+}else {
     load404Page();
 }
 

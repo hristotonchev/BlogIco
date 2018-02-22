@@ -301,3 +301,16 @@ function displayAllCommentsInAdmin(){
         'list_comments_2' => $list_comments_2,
     ]);
 }
+
+function deleteComment() {
+    if(isset($_POST['delete']) && $_POST){
+        $id = $_GET['id'];
+        deleteCommentModel($id);
+        $_SESSION['MESSAGE_DELETE'] = "The Comment has been deleted";
+        header('location:/admin/comment_list.php');
+    }
+    renderAdminTemplate('templates/delete_comment.tpl.html',[
+        'pageTitle' => 'Delete Comment',
+        'currentPage' => null,
+    ]);
+}

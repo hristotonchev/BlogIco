@@ -281,7 +281,7 @@ function displayCommentsInAdmin() {
             <th width="5%">'.htmlspecialchars($row['displayed']).'</th>
             <th width="5%">'.htmlspecialchars($row['blog_post_id']).'</th>
             <th width="5%"><a href="edit.php?id='.$row['id'].'"class="button button2">Edit</a></th>
-            <th width="5%"><a class="button button3" href="delete.php?id='.$row['id'].'">Delete</a></th>
+            <th width="5%"><a class="button button3" href="comment/delete.php?id='.$row['id'].'">Delete</a></th>
             </tr>
         </table>';
     }
@@ -348,4 +348,12 @@ function paginglinkForComments($query, $records_per_page)
         $html .='</td></tr>';
         close_database_con($link);
     } return $html;
+}
+
+function deleteCommentModel($id){
+    $link = open_database_con();
+    $sql = "DELETE FROM comments WHERE id=:id";
+    $query = $link->prepare($sql);
+    $query->execute(array(':id' => $id));
+    close_database_con($link);
 }

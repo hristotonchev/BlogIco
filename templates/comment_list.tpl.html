@@ -1,11 +1,11 @@
 <html>
     <head>
         <?php
-      //      if(isset($_SESSION['MESSAGE_DELETE'])) {echo '<p>'.$_SESSION['MESSAGE_DELETE'].'</p>' ;}
-      //          unset($_SESSION['MESSAGE_DELETE']);
-      //      if(isset($_SESSION['messages']['login'])) {echo '<li>'.$_SESSION['messages']['login'].'</li>' ;}
-      //          unset($_SESSION['messages']['login']);
-      //  ?>
+           if(isset($_SESSION['MESSAGE_DELETE'])) {echo '<p>'.$_SESSION['MESSAGE_DELETE'].'</p>' ;}
+                unset($_SESSION['MESSAGE_DELETE']);
+            if(isset($_SESSION['messages']['login'])) {echo '<li>'.$_SESSION['messages']['login'].'</li>' ;}
+                unset($_SESSION['messages']['login']);
+        ?>
         <title>Comment List</title>
     </head>
     <body>
@@ -19,7 +19,7 @@
         <th width="5%">Displayed</th>
         <th width="5%">Blog ID</th>
         <th width="5%">Edit</th>
-        <th width="5%">Delete</th>
+        <th width="7%">Delete</th>
     </tr>
      <?php
    echo $vars['list_commnets'];
