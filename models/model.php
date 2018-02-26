@@ -280,7 +280,6 @@ function displayCommentsInAdmin() {
             <th width="10%">'.htmlspecialchars($row['created']).'</th>
             <th width="5%">'.htmlspecialchars($row['displayed']).'</th>
             <th width="5%">'.htmlspecialchars($row['blog_post_id']).'</th>
-            <th width="5%"><a href="edit.php?id='.$row['id'].'"class="button button2">Edit</a></th>
             <th width="5%"><a class="button button3" href="comment/delete.php?id='.$row['id'].'">Delete</a></th>
             </tr>
         </table>';

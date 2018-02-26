@@ -1,4 +1,5 @@
 <?php
+use controllers\SiteController;
 session_start();
 require_once('models/model.php');
 require_once('controllers/controller.php');
@@ -10,9 +11,10 @@ if(('/admin/login.php' != $uri) and !isset($_SESSION['login_user']) and strpos($
     var_dump($_SESSION);
   header("location:/admin/login.php");
 }
+$siteController = new SiteController;
 
 if ('/index.php' === $uri || '/' === $uri || $uri === '') {
-    list_action();
+    $siteController->list_action();
 } elseif ('/blogs.php' === $uri && !isset($_GET['id'])) {
     list_action_blogPage();
 } elseif ('/blogs.php' === $uri && isset($_GET['id'])) {

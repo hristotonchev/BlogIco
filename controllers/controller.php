@@ -60,14 +60,14 @@ function load404Page() {
 
 function renderTemplate($template, $vars , $showSidebar = true, $showHeader = true, $showFooter = true) {
     if($showHeader){
-        include('inc/header.php');
+        include('templates/header.tpl.html');
     }
     include($template);
     if ($showSidebar) {
-        include('inc/nav_menu.php');
+        include('templates/navigation_menu.tpl.html');
     }
     if($showFooter){
-        include('inc/footer.php');
+        include('templates/footer.tpl.html');
     }
 }
 
@@ -199,7 +199,7 @@ function loginToAdmin() {
 
 function renderAdminTemplate($template, $vars , $showAdminHeader = true) {
     if($showAdminHeader) {
-        include("inc/header_admin.php");
+        include("templates/header_admin.tpl.html");
     }
     include($template);
 }
