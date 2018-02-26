@@ -227,7 +227,8 @@ function login($username)
         close_database_con($link);
 }
 
-function deleteBlogPost($id){
+function deleteBlogPost($id)
+{
     $link = open_database_con();
     $sql = "DELETE FROM blog_posts WHERE id=:id";
     $query = $link->prepare($sql);
@@ -235,7 +236,8 @@ function deleteBlogPost($id){
     close_database_con($link);
 }
 
-function updateBlogPost($id, $title,$body,$published) {
+function updateBlogPost($id, $title, $body, $published)
+{
     $link = open_database_con();
     $sql = "UPDATE blog_posts SET title=:title, body=:body, published=:published WHERE id=:id";
     $query = $link->prepare($sql);
@@ -249,20 +251,22 @@ function updateBlogPost($id, $title,$body,$published) {
     close_database_con($link);
 }
 
-function displayInfoAboutSinglePost($id) {
+function displayInfoAboutSinglePost($id)
+{
     $link = open_database_con();
     $sql = "SELECT * FROM blog_posts WHERE id=:id";
     $query = $link->prepare($sql);
     $query->execute(array(':id' => $id));
     $result = array();
-    while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         $result[] = $row;
     }
     return $result;
     close_database_con($link);
 }
 
-function displayCommentsInAdmin() {
+function displayCommentsInAdmin()
+{
     $link = open_database_con();
     $result = null;
     $sql = "SELECT * FROM comments ORDER BY id DESC";
@@ -270,7 +274,7 @@ function displayCommentsInAdmin() {
     $query->execute();
 
     $html = '';
-    while($row=$query->fetch(PDO::FETCH_ASSOC)){
+    while ($row=$query->fetch(PDO::FETCH_ASSOC)) {
         $result .=
         '<table>
             <tr>
@@ -349,7 +353,8 @@ function paginglinkForComments($query, $records_per_page)
     } return $html;
 }
 
-function deleteCommentModel($id){
+function deleteCommentModel($id)
+{
     $link = open_database_con();
     $sql = "DELETE FROM comments WHERE id=:id";
     $query = $link->prepare($sql);

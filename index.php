@@ -1,45 +1,48 @@
 <?php
 use controllers\SiteController;
+use controllers\AdminController;
+
 session_start();
 require_once('models/model.php');
-require_once('controllers/controller.php');
+require_once('controllers/SiteController.php');
+require_once('controllers/AdminController.php');
+
+$siteController = new SiteController;
+$adminController = new AdminController;
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = str_replace('/index.php', '',  $uri);
+$uri = str_replace('/index.php', '', $uri);
 var_dump($uri);
-if(('/admin/login.php' != $uri) and !isset($_SESSION['login_user']) and strpos($uri,'admin')){
-    var_dump($_SESSION);
-  header("location:/admin/login.php");
+if (('/admin/login.php' != $uri) and !isset($_SESSION['login_user']) and strpos($uri, 'admin')) {
+    header("location:/admin/login.php");
 }
-$siteController = new SiteController;
 
 if ('/index.php' === $uri || '/' === $uri || $uri === '') {
     $siteController->list_action();
 } elseif ('/blogs.php' === $uri && !isset($_GET['id'])) {
-    list_action_blogPage();
+    $siteController->list_action_blogPage();
 } elseif ('/blogs.php' === $uri && isset($_GET['id'])) {
-    list_single_blog($_GET['id']);
-} elseif ('/about.php' === $uri ) {
-    loadAboutPage();
+     $siteController->list_single_blog($_GET['id']);
+} elseif ('/about.php' === $uri) {
+     $siteController->loadAboutPage();
 } elseif ('/contact.php' === $uri) {
-    loadContactPage();
+    $siteController->loadContactPage();
 } elseif ('/admin/admin.php' === $uri) {
-   createBlogPostAdmin();
+    $adminController->createBlogPostAdmin();
 } elseif ('/admin/blogposts.php' === $uri) {
-    displayBlogPostsAdmin();
+    $adminController->displayBlogPostsAdmin();
 } elseif ('/admin/login.php' === $uri) {
-    loginToAdmin();
+    $adminController->loginToAdmin();
 } elseif ('/admin/delete.php' === $uri) {
-    deletePost();
+    $adminController->deletePost();
 } elseif ('/admin/logout.php' === $uri) {
-    logout();
+    $adminController->logout();
 } elseif ('/admin/edit.php' === $uri) {
-    editBlogPost();
+    $adminController->editBlogPost();
 } elseif ('/admin/comment_list.php' === $uri) {
-    displayAllCommentsInAdmin();
-} elseif('/admin/comment/delete.php' === $uri){
-    deleteComment();
-}else {
-    load404Page();
+    $adminController->displayAllCommentsInAdmin();
+} elseif ('/admin/comment/delete.php' === $uri) {
+    $adminController->deleteComment();
+} else {
+     $siteController->load404Page();
 }
-
