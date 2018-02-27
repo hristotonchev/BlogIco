@@ -1,5 +1,4 @@
 <?php
-die('666');
 namespace controllers;
 
 class AdminController
@@ -226,7 +225,7 @@ class AdminController
             $_SESSION['MESSAGE_DELETE'] = "The Comment has been deleted";
             header('location:/admin/comment_list.php');
         }
-        renderAdminTemplate('templates/delete_comment.tpl.html', [
+        $this->renderAdminTemplate('templates/delete_comment.tpl.html', [
         'pageTitle' => 'Delete Comment',
         'currentPage' => null,
         ]);
