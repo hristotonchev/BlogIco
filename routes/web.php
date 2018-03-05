@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'BlogController@home')->name('home');
+
+Route::get('/about', 'BlogController@about')->name('about');
+
+Route::get('/contact', 'BlogController@contact')->name('contact');
+
+Route::get('/blogposts','BlogController@blogposts')->name('blogposts');
+
+Route::get('/blogpost/{id}','BlogController@blogpost')->name('blogpost');
+
+Route::post('/comment','BlogController@comment')->name('comment');
