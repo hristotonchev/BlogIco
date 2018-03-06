@@ -48,7 +48,6 @@ class BlogController extends Controller
            'post' => $blogPost,
            'currentPage' => 'Blog Post',
            'comments' => $comments,
-           'data' => $data,
         ]);
 
     }
@@ -64,7 +63,7 @@ class BlogController extends Controller
             'author' => 'required|max:255',
             'comment_body' => 'required|max:1000',
         ]);
-        $value = $request->session()->get('key', 'Your comment has been submitted');
+        $value = $request->session()->flash('key', 'Your comment has been submitted');
 
         $comment = new Comments;
         $comment->author = $request->author;

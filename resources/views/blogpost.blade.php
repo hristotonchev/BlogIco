@@ -5,6 +5,7 @@
     <div class="content_wrap">
         <div class="left-panel">
             <div class="panel">
+                <a>{{session()->get('key')}}</a>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -23,7 +24,6 @@
                         <br>
                         @include('comments')
                     </div>
-
             </div>
         </div>
     </div>
