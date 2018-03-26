@@ -18,6 +18,9 @@
       <li><a href="https://twitter.com/SiteGround"><img src="/images/social-3.jpg" alt="Siteground" /></a></li>
       <li class="no-padding"><a href="https://www.linkedin.com/in/hristo-tonchev-54a36193/"><img src="/images/social-4.jpg" alt="LinkedIn" /></a></li>
     </ul>
+<!-- Will Delete this later on , now i am too lazy to write it manual in the URl -->
+    <a href="{{ route('login')}}" class="@if($currentPage == 'contact') active @endif">Login</a>
+
     <div class="clear"></div>
   </div>
 </div>

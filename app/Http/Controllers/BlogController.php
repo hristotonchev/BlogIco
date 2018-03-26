@@ -8,9 +8,10 @@ use App\Models\Comments;
 
 class BlogController extends Controller
 {
-    public function home() {
+    public function home()
+    {
         $blogPost = BlogPost::where('published', '1')
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->take(3)
             ->get();
         return view('home', [
@@ -19,37 +20,39 @@ class BlogController extends Controller
         ]);
     }
 
-    public function about() {
-        return view('about',['currentPage' => 'about']);
+    public function about()
+    {
+        return view('about', ['currentPage' => 'about']);
     }
 
-    public function contact() {
-        return view('contact',['currentPage' => 'contact']);
+    public function contact()
+    {
+        return view('contact', ['currentPage' => 'contact']);
     }
 
-    public function blogposts() {
-        $blogsPosts = BlogPost::orderBy('id','desc')
+    public function blogposts()
+    {
+        $blogsPosts = BlogPost::orderBy('id', 'desc')
             ->get();
         return view('blogposts', [
             'posts' => $blogsPosts,
             'currentPage' => 'Blog Posts',
         ]);
-
     }
 
-    public function blogPost($id) {
+    public function blogPost($id)
+    {
         $blogPost = BlogPost::findOrFail($id);
-        if($blogPost->published != 1){
+        if ($blogPost->published != 1) {
             throw new Exception;
         }
-        $comments = Comments::where('blog_post_id',$id)
+        $comments = Comments::where('blog_post_id', $id)
             ->get();
-        return view('blogpost',[
+        return view('blogpost', [
            'post' => $blogPost,
            'currentPage' => 'Blog Post',
            'comments' => $comments,
         ]);
-
     }
 
     /**
@@ -58,7 +61,8 @@ class BlogController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function comment(Request $request) {
+    public function comment(Request $request)
+    {
         $validatedData = $request->validate([
             'author' => 'required|max:255',
             'comment_body' => 'required|max:1000',
@@ -73,5 +77,4 @@ class BlogController extends Controller
         $comment->save();
         return redirect()->action('BlogController@blogpost', [$comment->blog_post_id]);
     }
-
 }

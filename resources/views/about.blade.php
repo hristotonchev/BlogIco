@@ -1,5 +1,5 @@
 @extends('layouts.public')
-@section('pageTitle' , 'About')
+@section('pageTitle', 'About')
 @section('content')
 <div class="page padding-bottom">
   <div class="content_wrap">
