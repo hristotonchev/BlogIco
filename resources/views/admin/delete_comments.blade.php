@@ -9,16 +9,16 @@
                 @endforeach
             </ul>
         @endif
-        <h1>Are you sure you want to delete this comment</h1>
-    <div>
-        {{ Form::open(array('route' => "admin_delete_comment"))}}
-         <div style="display:none">
-        <br>
-        {{Form::label('id','Id')}}
-        {{Form::hidden('id',$id)}}
-    </div>
-        {{Form::submit('Yes', ['class' => 'button button3'])}}
-         <a href="{{ route('admin_comments_list')}}" class="button">No</a>
-        {{Form::close()}}
-    @endsection
+    <h1>Are you sure you want to delete this comment</h1>
+        <div>
+            {{ Form::open(array('route' => "admin_delete_comment"))}}
+            <div style="display:none">
+            <br>
+            {{Form::label('id','Id')}}
+            {{Form::hidden('id',$id)}}
+        </div>
+            {{Form::submit('Yes', ['class' => 'button button3'])}}
+            <a href="{{ route('admin_comments_list')}}" class="button">No</a>
+            {{Form::close()}}
+@endsection
 

@@ -51,8 +51,8 @@
            <div class="right-panel">
       <div class="contact-panel">
         <div class="title">
-          <h1>PROIN A RISUS</h1>
-          <span>Vestibulum suscipit nib</span></div>
+          <h1>Submit your Idea</h1>
+          <span>Do you have any ideas for blogs</span></div>
         <div class="form">
           <ul>
             <li>
@@ -79,15 +79,15 @@
       <div class="clear"></div>
       <div class="panel martop">
         <div class="title">
-          <h1>DUIS AT LACUS</h1>
-          <h2>Sed sagittis mi scelerisque</h2>
+          <h1>Popular Blogs</h1>
+          <h2>Here you can find popular Blogs</h2>
         </div>
         <div class="content">
           <ul>
-            <li><a href="#">Posuere justo velitet laotinoc us</a></li>
-            <li><a href="#">Donec egestas diam sed odiotio</a></li>
-            <li><a href="#">Integer eu nibh vitae massa kun</a></li>
-            <li><a href="#">Lorem ipsum dolor sit amet, con</a></li>
+            <li><a href="{{ route('blogpost',1)}}"> -- Super man here --</a></li>
+            <li><a href="{{ route('blogpost',2)}}"> -- Wonder Woman here --</a></li>
+            <li><a href="{{ route('blogpost',3)}}"> -- The Flash here --</a></li>
+            <li><a href="{{ route('blogpost',4)}}"> -- Batman here --</a></li>
           </ul>
         </div>
         <div class="clear"></div>
@@ -95,8 +95,8 @@
       <div class="clear"></div>
       <div class="contact-panel padding-bottm">
         <div class="title">
-          <h1>ALIQUAM ADIPIS</h1>
-          <span>Suspendisse ut urna enim</span></div>
+          <h1>Quick Search</h1>
+          <span>Try if you dare</span></div>
         <div class="search">
           <ul>
             <li class="libg">
