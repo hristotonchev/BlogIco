@@ -16,7 +16,6 @@ class BlogController extends Controller
             ->get();
         return view('home', [
             'posts' => $blogPost,
-            'currentPage' => 'home',
         ]);
     }
 
@@ -36,7 +35,6 @@ class BlogController extends Controller
             ->get();
         return view('blogposts', [
             'posts' => $blogsPosts,
-            'currentPage' => 'Blog Posts',
         ]);
     }
 
@@ -44,13 +42,12 @@ class BlogController extends Controller
     {
         $blogPost = BlogPost::findOrFail($id);
         if ($blogPost->published != 1) {
-            throw new Exception;
+            return abort(404);
         }
         $comments = Comments::where('blog_post_id', $id)
             ->get();
         return view('blogpost', [
            'post' => $blogPost,
-           'currentPage' => 'Blog Post',
            'comments' => $comments,
         ]);
     }
@@ -67,7 +64,6 @@ class BlogController extends Controller
             'author' => 'required|max:255',
             'comment_body' => 'required|max:1000',
         ]);
-        $value = $request->session()->flash('key', 'Your comment has been submitted');
 
         $comment = new Comments;
         $comment->author = $request->author;
@@ -75,6 +71,7 @@ class BlogController extends Controller
         $comment->displayed = 1;
         $comment->blog_post_id = $request->blog_post_id;
         $comment->save();
+        $value = $request->session()->flash('key', 'Your comment has been submitted');
         return redirect()->action('BlogController@blogpost', [$comment->blog_post_id]);
     }
 }

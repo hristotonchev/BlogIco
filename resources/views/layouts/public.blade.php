@@ -19,7 +19,7 @@
       <li class="no-padding"><a href="https://www.linkedin.com/in/hristo-tonchev-54a36193/"><img src="/images/social-4.jpg" alt="LinkedIn" /></a></li>
     </ul>
 <!-- Will Delete this later on , now i am too lazy to write it manual in the URl -->
-    <a href="{{ route('login')}}" class="@if($currentPage == 'contact') active @endif">Login</a>
+    <a href="{{ route('login')}}" class="@if((\Request::route()->getName()) == 'contact') active @endif">Login</a>
 
     <div class="clear"></div>
   </div>
@@ -33,10 +33,10 @@
     </div>
     <div class="menu">
       <ul class="nav navbar -nav">
-        <li><a href="{{ route('home')}}" class="@if ($currentPage == 'home') active @endif">Home</a></li>
-        <li><a href="{{ route('about')}}" class="@if($currentPage == 'about') active @endif">About</a></li>
-        <li><a href="{{ route('blogposts')}}" class="@if($currentPage == 'blogposts') active @endif">Blogs</a></li>
-        <li><a href="{{ route('contact')}}" class="@if($currentPage == 'contact') active @endif">Contact</a></li>
+        <li><a href="{{ route('home')}}" class="@if ((\Request::route()->getName()) == 'home') active @endif">Home</a></li>
+        <li><a href="{{ route('about')}}" class="@if((\Request::route()->getName()) == 'about') active @endif">About</a></li>
+        <li><a href="{{ route('blogposts')}}" class="@if((\Request::route()->getName()) == 'blogposts') active @endif">Blogs</a></li>
+        <li><a href="{{ route('contact')}}" class="@if((\Request::route()->getName()) == 'contact') active @endif">Contact</a></li>
       </ul>
     </div>
   </div>

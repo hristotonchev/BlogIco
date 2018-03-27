@@ -22,10 +22,8 @@ class AdminController extends Controller
     {
         $blogPost = BlogPost::orderBy('id', 'DESC')
             ->simplePaginate(10);
-            //->get();
 
         return view('admin.all_blogs_admin', [
-            'currentPage' => 'admin_blogposts',
             'blogPost' => $blogPost,
         ]);
     }
@@ -41,7 +39,6 @@ class AdminController extends Controller
     {
         return view('admin.edit_blog_admin', [
             'isNew' => true,
-            'currentPage' => 'admin_create_blogpost',
             'title' => null,
             'body' => null,
             'published' => null,
@@ -56,13 +53,12 @@ class AdminController extends Controller
             'body' => 'required|max:1000',
         ]);
 
-        $value = $request->session()->flash('key', 'Your blog Post has been submitted');
-
         $blog = new BlogPost;
         $blog->title = $request->title;
         $blog->body = $request->body;
         $blog->published = $request->published;
         $blog->save();
+        $value = $request->session()->flash('key', 'Your blog Post has been submitted');
         return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
     }
 
@@ -72,7 +68,6 @@ class AdminController extends Controller
 
         return view('admin.edit_blog_admin', [
             'isNew' => false,
-            'currentPage' => 'Edit Blog Post',
             'title' => $blog['title'],
             'body' => $blog['body'],
             'published' => $blog['published'],
@@ -87,8 +82,6 @@ class AdminController extends Controller
             'body' => 'required|max:5000',
         ]);
 
-        $value = $request->session()->flash('key', 'Your blog Post has been updated');
-
         $id = $request->id;
 
         $blog = BlogPost::findOrFail($id);
@@ -96,15 +89,16 @@ class AdminController extends Controller
         $blog->body = $request->body;
         $blog->published = $request->published;
         $blog->save();
+        $value = $request->session()->flash('key', 'Your blog Post has been updated');
         return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
     }
 
     public function deleteBlogPost(Request $request)
     {
-        $value = $request->session()->flash('key', 'Your blog Post has been deleted');
         $id = $request->id;
         $blog = BlogPost::find($id);
         $blog->delete();
+        $value = $request->session()->flash('key', 'Your blog Post has been deleted');
         return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
     }
 
@@ -112,7 +106,6 @@ class AdminController extends Controller
     {
         return view('admin.delete_blog_admin', [
             'id' => $id,
-            'currentPage' => 'Delete Blog Post',
         ]);
     }
 
@@ -121,17 +114,16 @@ class AdminController extends Controller
         $comment = Comments::orderBy('id', 'DESC')
             ->simplePaginate(10);
         return view('admin.comments_admin', [
-            'currentPage' => 'admin_commentlist',
             'comment' => $comment,
         ]);
     }
 
     public function deleteComment(Request $request)
     {
-        $value = $request->session()->flash('key', 'Your Comment has been deleted');
         $id = $request->id;
         $comment = Comments::find($id);
         $comment->delete();
+        $value = $request->session()->flash('key', 'Your Comment has been deleted');
         return redirect()->action('AdminController@displayAllCommentsInAdmin');
     }
 
@@ -139,7 +131,6 @@ class AdminController extends Controller
     {
         return view('admin.delete_comments', [
             'id' => $id,
-            'currentPage' => 'Delete Comment',
         ]);
     }
 }

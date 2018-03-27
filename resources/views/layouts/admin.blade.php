@@ -6,9 +6,9 @@
 <link href="/css/styles2.css" rel="stylesheet" type="text/css" />
 </head>
 
-<a href="{{ route('admin_blogposts')}}" class="button @if ($currentPage == 'admin_blogposts') active @endif">Blog Posts</a>
-<a href="{{ route('admin_create_blogpost')}}" class="button @if($currentPage == 'admin_create_blogpost') active @endif">Create Blog Post</a>
-<a href="{{ route('admin_comments_list')}}" class="button @if($currentPage == 'admin_commentlist') active @endif">Comments</a>
+<a href="{{ route('admin_blogposts')}}" class="button @if ((\Request::route()->getName()) == 'admin_blogposts') active @endif">Blog Posts</a>
+<a href="{{ route('admin_create_blogpost')}}" class="button @if((\Request::route()->getName()) == 'admin_create_blogpost') active @endif">Create Blog Post</a>
+<a href="{{ route('admin_comments_list')}}" class="button @if((\Request::route()->getName()) == 'admin_comments_list') active @endif">Comments</a>
 
 <a href="{{ route('logout')}}" class="button button4">Logout</a>
 <!-- here should be the content -->
