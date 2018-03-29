@@ -43,7 +43,7 @@
             {{Form::submit('send',array('class'=>'button'))}}
         @else
             {{Form::submit('send', array('class'=>'button'))}}
-            <a href="{{ route('admin_destroy_blogpost',$id)}}" class="button button3">Delete</a>
+            <a href="{{ route('admin_destroy_blogpost',['id'=>$id])}}" class="button button3">Delete</a>
         @endif
     </div>
     @endsection

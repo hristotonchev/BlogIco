@@ -111,7 +111,7 @@
                 <p> {{ substr($post['body'], 0, 300).'...' }}  </p>
             <div class="controller">
             <div class="buttons">
-                <h2><a href= "/index.php/blogs.php?id= {{ $post['id'] }}"class='button'> More</a></h2>
+                <h2><a href= "{{route('blogpost',['id'=>$post['id']]) }}"class='button'> More</a></h2>
             </div>
             </div>
             </div>

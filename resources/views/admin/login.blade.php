@@ -5,6 +5,7 @@
 <link href="/css/styles2.css" rel="stylesheet" type="text/css" />
 <title>Login</title>
 <p>{{session()->get('login_fail')}}</p>
+<a>{{session()->get('key')}}</a>
 <div>
     @if ($errors->any())
         <ul>

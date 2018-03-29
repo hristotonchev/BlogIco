@@ -28,8 +28,8 @@
                 <th width="5%">{{$result->title}}</th>
                 <th>{{ substr($result['body'], 0, 300).'...' }}</th>
                 <th width="5%">{!! $result->published ? "&#10004;":"&#10008;" !!}</th>
-                <th><a class="button button" href="{{ route('admin_edit_blogpost', $result->id)}}"</a>Edit</th>
-                <th width="5%"><a href="{{ route('admin_destroy_blogpost',$result->id)}}" class="button button3">Delete</a></th>
+                <th><a class="button button" href="{{ route('admin_edit_blogpost', ['id'=>$result->id])}}"</a>Edit</th>
+                <th width="5%"><a href="{{ route('admin_destroy_blogpost',['id'=>$result->id])}}" class="button button3">Delete</a></th>
 
     @endforeach
             </tr>

@@ -84,10 +84,10 @@
         </div>
         <div class="content">
           <ul>
-            <li><a href="{{ route('blogpost',1)}}"> -- Super man here --</a></li>
-            <li><a href="{{ route('blogpost',2)}}"> -- Wonder Woman here --</a></li>
-            <li><a href="{{ route('blogpost',3)}}"> -- The Flash here --</a></li>
-            <li><a href="{{ route('blogpost',4)}}"> -- Batman here --</a></li>
+            <li><a href="{{ route('blogpost',['id'=>1])}}"> -- Super man here --</a></li>
+            <li><a href="{{ route('blogpost',['id'=>2])}}"> -- Wonder Woman here --</a></li>
+            <li><a href="{{ route('blogpost',['id'=>3])}}"> -- The Flash here --</a></li>
+            <li><a href="{{ route('blogpost',['id'=>4])}}"> -- Batman here --</a></li>
           </ul>
         </div>
         <div class="clear"></div>

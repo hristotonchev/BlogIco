@@ -12,7 +12,7 @@ class BlogController extends Controller
     {
         $blogPost = BlogPost::where('published', '1')
             ->orderBy('id', 'desc')
-            ->take(3)
+            ->take(4)
             ->get();
         return view('home', [
             'posts' => $blogPost,
@@ -72,6 +72,6 @@ class BlogController extends Controller
         $comment->blog_post_id = $request->blog_post_id;
         $comment->save();
         $value = $request->session()->flash('key', 'Your comment has been submitted');
-        return redirect()->action('BlogController@blogpost', [$comment->blog_post_id]);
+        return redirect()->route('blogpost', [$comment->blog_post_id]);
     }
 }

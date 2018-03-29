@@ -39,16 +39,16 @@ Route::get('/admin/admin_create_blogpost', 'AdminController@createBlogPost')->na
 
 Route::post('/admin/admin_save_blogpost', 'AdminController@saveBlogPost')->name('admin_save_blogpost');
 
-Route::get('/admin/admin_edit_blogpost/{id}', 'AdminController@editBlogPost')->name('admin_edit_blogpost');
+Route::get('/admin/blogpost/{id}/edit', 'AdminController@editBlogPost')->name('admin_edit_blogpost');
 
 Route::post('/admin/admin_update_blogpost', 'AdminController@updateBlogPost')->name('admin_update_blogpost');
 
 Route::post('/admin/admin_delete_blogpost', 'AdminController@deleteBlogPost')->name('admin_delete_blogpost');
 
-Route::get('/admin/admin_destroy_blogpost/{id}', 'AdminController@destroyBlogPost')->name('admin_destroy_blogpost');
+Route::get('/admin/blogpost/{id}/destroy', 'AdminController@destroyBlogPost')->name('admin_destroy_blogpost');
 
 Route::get('admin/admin_comments_list', 'AdminController@displayAllCommentsInAdmin')->name('admin_comments_list');
 
-Route::get('/admin/admin_destroy_comment/{id}', 'AdminController@destroyComment')->name('admin_destroy_comment');
+Route::get('/admin/comment/{id}/destroy', 'AdminController@destroyComment')->name('admin_destroy_comment');
 
 Route::post('/admin/admin_delete_comment', 'AdminController@deleteComment')->name('admin_delete_comment');

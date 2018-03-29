@@ -31,8 +31,7 @@ class AdminController extends Controller
     public function logout()
     {
         \Auth::logout();
-        return redirect()->action('LoginController@login')->with('message', 'Your are now logged out!');
-        ;
+        return redirect()->route('login')->with('key', 'Your are now logged out!');
     }
 
     public function createBlogPost()
@@ -59,7 +58,7 @@ class AdminController extends Controller
         $blog->published = $request->published;
         $blog->save();
         $value = $request->session()->flash('key', 'Your blog Post has been submitted');
-        return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
+        return redirect()->route('admin_blogposts');
     }
 
     public function editBlogPost($id)
@@ -90,7 +89,7 @@ class AdminController extends Controller
         $blog->published = $request->published;
         $blog->save();
         $value = $request->session()->flash('key', 'Your blog Post has been updated');
-        return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
+        return redirect()->route('admin_blogposts');
     }
 
     public function deleteBlogPost(Request $request)
@@ -99,7 +98,7 @@ class AdminController extends Controller
         $blog = BlogPost::find($id);
         $blog->delete();
         $value = $request->session()->flash('key', 'Your blog Post has been deleted');
-        return redirect()->action('AdminController@displayAllBlogPostsInAdmin');
+        return redirect()->route('admin_blogposts');
     }
 
     public function destroyBlogPost($id)
@@ -124,7 +123,7 @@ class AdminController extends Controller
         $comment = Comments::find($id);
         $comment->delete();
         $value = $request->session()->flash('key', 'Your Comment has been deleted');
-        return redirect()->action('AdminController@displayAllCommentsInAdmin');
+        return redirect()->route('admin_comments_list');
     }
 
     public function destroyComment($id)

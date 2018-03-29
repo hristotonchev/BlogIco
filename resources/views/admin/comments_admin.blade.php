@@ -30,7 +30,7 @@
                 <th width="10%">{{$result->created}}</th>
                 <th width="5%">{!! $result->displayed ? "&#10004;":"&#10008;" !!}</th>
                 <th width="5%">{{$result->blog_post_id}}</th>
-                <th width="5%"><a href="{{ route('admin_destroy_comment',$result->id)}}" class="button button3">Delete</a></th>
+                <th width="5%"><a href="{{ route('admin_destroy_comment',['id'=>$result->id])}}" class="button button3">Delete</a></th>
     @endforeach
             </tr>
 @endsection
